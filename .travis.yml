@@ -1,0 +1,22 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t honzirek/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true honzirek/react-test npm run test
+
+after_success:
+  - docker build -t honzirek/multi-client ./client
+  - docker build -t honzirek/multi-server ./server
+  - docker build -t honzirek/multi-worker ./worker
+  - docker build -t honzirek/multi-nginx ./nginx
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push honzirek/multi-client
+  - docker push honzirek/multi-server
+  - docker push honzirek/multi-worker
+  - docker push honzirek/multi-nginx
