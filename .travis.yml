@@ -28,9 +28,8 @@ deploy:
   env: 'Multidocker-env'
   bucket_name: "elasticbeanstalk-us-east-1-792063144330"
   bucket_path: 'docker-multi'
+  glob: "*compose.yml"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  glob: "docker-compose.yml"
-  
