@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+ 
+kind: Certificate
+metadata:
+  name: honzirek-com-tls
+spec:
+  secretName: honzirek-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: honzirek.com
+  dnsNames:
+    - honzirek.com
+    - www.honzirek.com
